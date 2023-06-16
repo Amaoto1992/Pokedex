@@ -19,39 +19,59 @@ class PokemonEntity {
 }
 
 class Abilities {
+  Abilities({this.ability, this.slot});
+
   final Ability? ability;
   final int? slot;
 
-  Abilities({this.ability, this.slot});
+  Abilities.fromJson(Map<String, dynamic> json)
+      : ability = json['ability'],
+        slot = json['slot'];
 }
 
 class Ability {
+  Ability({this.name});
+
   final String? name;
 
-  Ability({this.name});
+  Ability.fromJson(Map<String, dynamic> json) :
+        name = json['name'];
 }
 
 class Types {
+  Types({this.slot, this.type});
+
   final int? slot;
   final Ability? type;
 
-  Types({this.slot, this.type});
+  Types.fromJson(Map<String, dynamic> json)
+      : slot = json['slot'],
+        type = json['type'];
 }
 
 class Sprites {
+  Sprites({this.other});
+
   final OtherSprite? other;
 
-  Sprites({this.other});
+  Sprites.fromJson(Map<String, dynamic> json) :
+        other = json['other'];
 }
 
 class OtherSprite {
+  OtherSprite({this.officialArtwork});
+
   final OfficialArtwork? officialArtwork;
 
-  OtherSprite({this.officialArtwork});
+  OtherSprite.fromJson(Map<String, dynamic> json)
+      : officialArtwork = json['official-artwork'];
 }
 
 class OfficialArtwork {
+  OfficialArtwork({this.frontDefault});
+
   final String? frontDefault;
 
-  OfficialArtwork({this.frontDefault});
+  OfficialArtwork.fromJson(Map<String, dynamic> json)
+      : frontDefault = json['front_default'];
 }
