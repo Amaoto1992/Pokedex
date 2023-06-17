@@ -9,7 +9,10 @@ class PokemonState {
   });
 
   factory PokemonState.initialState() => const PokemonState(
-      status: PokemonStatus.initial, pokemonList: [], error: '');
+        status: PokemonStatus.initial,
+        pokemonList: [],
+        error: '',
+      );
 
   final PokemonStatus status;
   final List<PokemonEntity> pokemonList;
