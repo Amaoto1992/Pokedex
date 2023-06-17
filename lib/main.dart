@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/features/pokemon/presentation/pokedex/pokedex_screen.dart';
+import 'package:pokedex/injection_container.dart';
 
 void main(){
+  setUp();
   runApp(const Pokedex());
 }
 
@@ -12,6 +15,7 @@ class Pokedex extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pokedex',
+      home: PokedexScreen(),
     );
   }
 }
