@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class PokemonEntity {
   final int? id;
   final String? name;
@@ -6,6 +8,7 @@ class PokemonEntity {
   final List<Abilities>? abilities;
   final List<Types>? types;
   final Sprites? sprites;
+  final int? baseExperience;
 
   PokemonEntity({
     this.id,
@@ -15,7 +18,22 @@ class PokemonEntity {
     this.abilities,
     this.types,
     this.sprites,
+    this.baseExperience,
   });
+
+  PokemonEntity.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        name = json['name'],
+        weight = json['weight'],
+        height = json['height'],
+        abilities = (json['abilities'] as List<dynamic>)
+            .map((e) => Abilities.fromJson(e))
+            .toList(),
+        types = (json['types'] as List<dynamic>)
+            .map((e) => Types.fromJson(e))
+            .toList(),
+        sprites = Sprites.fromJson(json['sprites']),
+        baseExperience = json['baseExperience'];
 }
 
 class Abilities {
@@ -25,7 +43,7 @@ class Abilities {
   final int? slot;
 
   Abilities.fromJson(Map<String, dynamic> json)
-      : ability = json['ability'],
+      : ability = Ability.fromJson(json['ability']),
         slot = json['slot'];
 }
 
@@ -34,8 +52,7 @@ class Ability {
 
   final String? name;
 
-  Ability.fromJson(Map<String, dynamic> json) :
-        name = json['name'];
+  Ability.fromJson(Map<String, dynamic> json) : name = json['name'];
 }
 
 class Types {
@@ -46,7 +63,7 @@ class Types {
 
   Types.fromJson(Map<String, dynamic> json)
       : slot = json['slot'],
-        type = json['type'];
+        type = Ability.fromJson(json['type']);
 }
 
 class Sprites {
@@ -55,7 +72,7 @@ class Sprites {
   final OtherSprite? other;
 
   Sprites.fromJson(Map<String, dynamic> json) :
-        other = json['other'];
+        other = OtherSprite.fromJson(json['other']);
 }
 
 class OtherSprite {
@@ -64,7 +81,7 @@ class OtherSprite {
   final OfficialArtwork? officialArtwork;
 
   OtherSprite.fromJson(Map<String, dynamic> json)
-      : officialArtwork = json['official-artwork'];
+      : officialArtwork = OfficialArtwork.fromJson(json['official-artwork']);
 }
 
 class OfficialArtwork {
