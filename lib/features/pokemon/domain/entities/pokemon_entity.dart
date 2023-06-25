@@ -33,7 +33,7 @@ class PokemonEntity {
             .map((e) => Types.fromJson(e))
             .toList(),
         sprites = Sprites.fromJson(json['sprites']),
-        baseExperience = json['baseExperience'];
+        baseExperience = json['base_experience'];
 }
 
 class Abilities {

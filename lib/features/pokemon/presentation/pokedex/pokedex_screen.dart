@@ -4,6 +4,9 @@ import 'package:pokedex/features/pokemon/domain/entities/pokemon_entity.dart';
 import 'package:pokedex/features/pokemon/presentation/pokedex/cubit/pokemon.state.dart';
 import 'package:pokedex/features/pokemon/presentation/pokedex/cubit/pokemon_cubit.dart';
 import 'package:pokedex/features/pokemon/presentation/pokedex/cubit/pokemon_status.dart';
+import 'package:pokedex/features/pokemon/presentation/pokedex/widgets/pokemon_card.dart';
+import 'package:pokedex/features/pokemon/presentation/pokedex/widgets/pokemon_stat.dart';
+import 'package:pokedex/features/pokemon/presentation/pokedex/widgets/tiny_pokemon_view.dart';
 import 'package:pokedex/injection_container.dart';
 
 class PokedexScreen extends StatelessWidget {
@@ -18,7 +21,7 @@ class PokedexScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'images/pokebola.jpeg',
+              'images/pokeball.png',
               width: 30,
               height: 30,
             ),
@@ -41,87 +44,29 @@ class PokedexScreen extends StatelessWidget {
               final List<PokemonEntity> pokemonList = state.pokemonList;
               return Center(
                 child: ListView.builder(
-                  itemCount: pokemonList.length,
-                  itemBuilder: (context, index) {
-                    final pokemon = state.pokemonList[index];
+                  itemCount: 1,
+                  itemBuilder: (context, i) {
+                    final pokemon = state.pokemonList[i];
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        const SizedBox(height: 30),
+                        nameContainer(pokemon),
                         const SizedBox(height: 20),
-                        Container(
-                          height: 50,
-                          width: 350,
-                          decoration: BoxDecoration(
-                            color: Colors.white38,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  pokemon.name.toString().toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.white70,
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        PokemonCard(
+                          imageNetwork: pokemon
+                              .sprites!.other!.officialArtwork!.frontDefault!,
+                          pokemonId: pokemon.height.toString(),
+                          pokemonLevel: pokemon.baseExperience.toString(),
+                          pokemonType: pokemon.types![0].type!.name!.toString().toUpperCase(),
+                          pokemonHability: pokemon.abilities![0].ability!.name!,
+                          pokemonHeight: pokemon.height.toString().toUpperCase(),
+                          pokemonWeight: pokemon.weight.toString().toUpperCase(),
                         ),
                         const SizedBox(height: 20),
-                        Stack(
-                          alignment: Alignment.topCenter,
-                          children: [
-                            Container(
-                              height: 660,
-                              width: 350,
-                              decoration: BoxDecoration(
-                                color: Colors.white38,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                Image.network(
-                                  pokemon.sprites!.other!.officialArtwork!
-                                      .frontDefault!,
-                                ),
-                                Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                            'NO. ${pokemon.height.toString()}'),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                            'HEIGHT. ${pokemon.height.toString()}'),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                            'WEIGHT. ${pokemon.weight.toString()}'),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
+                        TinyPokemonView(
+                          itemCount: pokemonList.length,
+                          imageUrls: pokemonList.map((pokemon) => pokemon.sprites!.other!.officialArtwork!.frontDefault!).toList(),
                         ),
                       ],
                     );
@@ -134,6 +79,32 @@ class PokedexScreen extends StatelessWidget {
               );
             }
           },
+        ),
+      ),
+    );
+  }
+
+  Container nameContainer(PokemonEntity pokemon) {
+    return Container(
+      height: 50,
+      width: 350,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              pokemon.name.toString().toUpperCase(),
+              style: const TextStyle(
+                color: Colors.black54,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ],
         ),
       ),
     );

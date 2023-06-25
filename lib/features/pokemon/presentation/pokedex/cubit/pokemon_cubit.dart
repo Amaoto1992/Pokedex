@@ -11,7 +11,8 @@ class PokemonCubit extends Cubit<PokemonState> {
 
   void getPokemonList() async {
     emit(
-      state.copyWith(status: PokemonStatus.loading,
+      state.copyWith(
+        status: PokemonStatus.loading,
       ),
     );
     try {
@@ -31,5 +32,13 @@ class PokemonCubit extends Cubit<PokemonState> {
         ),
       );
     }
+  }
+
+  void selectedPokemon() {
+    emit(
+      state.copyWith(
+        status: PokemonStatus.selectedPokemon,
+      ),
+    );
   }
 }

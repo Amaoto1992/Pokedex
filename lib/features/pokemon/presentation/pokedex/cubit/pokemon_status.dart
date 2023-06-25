@@ -3,4 +3,5 @@ enum PokemonStatus {
   loading,
   loaded,
   error,
+  selectedPokemon,
 }
