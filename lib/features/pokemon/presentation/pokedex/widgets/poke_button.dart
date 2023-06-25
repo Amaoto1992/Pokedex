@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/features/pokemon/presentation/pokedex/cubit/pokemon_cubit.dart';
-import 'package:pokedex/injection_container.dart';
 
 class PokeButton extends StatelessWidget {
   const PokeButton({
@@ -14,7 +14,7 @@ class PokeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        serviceLocator<PokemonCubit>().selectedPokemon();
+        context.read<PokemonCubit>().selectedPokemon(imageNetwork);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.grey.shade500,

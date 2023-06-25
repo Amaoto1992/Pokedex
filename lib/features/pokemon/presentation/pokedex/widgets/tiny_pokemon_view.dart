@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/features/pokemon/domain/entities/pokemon_entity.dart';
 import 'package:pokedex/features/pokemon/presentation/pokedex/widgets/poke_button.dart';
 
 class TinyPokemonView extends StatelessWidget {

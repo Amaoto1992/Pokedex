@@ -5,13 +5,19 @@ import 'package:pokedex/features/pokemon/presentation/pokedex/cubit/pokemon.stat
 import 'package:pokedex/features/pokemon/presentation/pokedex/cubit/pokemon_cubit.dart';
 import 'package:pokedex/features/pokemon/presentation/pokedex/cubit/pokemon_status.dart';
 import 'package:pokedex/features/pokemon/presentation/pokedex/widgets/pokemon_card.dart';
-import 'package:pokedex/features/pokemon/presentation/pokedex/widgets/pokemon_stat.dart';
 import 'package:pokedex/features/pokemon/presentation/pokedex/widgets/tiny_pokemon_view.dart';
 import 'package:pokedex/injection_container.dart';
 
-class PokedexScreen extends StatelessWidget {
-  const PokedexScreen({Key? key}) : super(key: key);
+class PokedexScreen extends StatefulWidget {
+  const PokedexScreen({
+    Key? key,
+  }) : super(key: key);
 
+  @override
+  State<PokedexScreen> createState() => _PokedexScreenState();
+}
+
+class _PokedexScreenState extends State<PokedexScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,20 +60,30 @@ class PokedexScreen extends StatelessWidget {
                         nameContainer(pokemon),
                         const SizedBox(height: 20),
                         PokemonCard(
-                          imageNetwork: pokemon
-                              .sprites!.other!.officialArtwork!.frontDefault!,
+                          imageNetwork: state.selectedImageUrl.isEmpty
+                              ? pokemon.sprites!.other!.officialArtwork!
+                                  .frontDefault!
+                              : state.selectedImageUrl,
                           pokemonId: pokemon.height.toString(),
                           pokemonLevel: pokemon.baseExperience.toString(),
-                          pokemonType: pokemon.types![0].type!.name!.toString().toUpperCase(),
+                          pokemonType: pokemon.types![0].type!.name!
+                              .toString()
+                              .toUpperCase(),
                           pokemonHability: pokemon.abilities![0].ability!.name!,
-                          pokemonHeight: pokemon.height.toString().toUpperCase(),
-                          pokemonWeight: pokemon.weight.toString().toUpperCase(),
+                          pokemonHeight:
+                              pokemon.height.toString().toUpperCase(),
+                          pokemonWeight:
+                              pokemon.weight.toString().toUpperCase(),
                         ),
                         const SizedBox(height: 20),
                         TinyPokemonView(
                           itemCount: pokemonList.length,
-                          imageUrls: pokemonList.map((pokemon) => pokemon.sprites!.other!.officialArtwork!.frontDefault!).toList(),
+                          imageUrls: pokemonList
+                              .map((pokemon) => pokemon.sprites!.other!
+                                  .officialArtwork!.frontDefault!)
+                              .toList(),
                         ),
+                        const SizedBox(height: 20),
                       ],
                     );
                   },

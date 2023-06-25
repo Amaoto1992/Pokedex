@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokedex/features/pokemon/presentation/pokedex/cubit/pokemon_cubit.dart';
 import 'package:pokedex/features/pokemon/presentation/pokedex/pokedex_screen.dart';
 import 'package:pokedex/injection_container.dart';
 
