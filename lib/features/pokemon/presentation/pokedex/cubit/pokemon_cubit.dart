@@ -5,7 +5,11 @@ import 'package:pokedex/features/pokemon/presentation/pokedex/cubit/pokemon.stat
 import 'package:pokedex/features/pokemon/presentation/pokedex/cubit/pokemon_status.dart';
 
 class PokemonCubit extends Cubit<PokemonState> {
-  PokemonCubit(this._pokemonRepository) : super(PokemonState.initialState(selectedImageUrl: ''));
+  PokemonCubit(this._pokemonRepository)
+      : super(PokemonState.initialState(
+          selectedImageUrl: '',
+          pokemonEntity: PokemonEntity(),
+        ));
 
   final PokemonRepository _pokemonRepository;
 
@@ -39,6 +43,15 @@ class PokemonCubit extends Cubit<PokemonState> {
     emit(
       state.copyWith(
         selectedImageUrl: selectedImageUrl,
+      ),
+    );
+  }
+
+  void selectedPokemonEntity(PokemonEntity pokemonEntity) {
+    print(pokemonEntity.baseExperience);
+    emit(
+      state.copyWith(
+        pokemonEntity: pokemonEntity,
       ),
     );
   }

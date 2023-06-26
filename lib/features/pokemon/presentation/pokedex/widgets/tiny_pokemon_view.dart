@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/features/pokemon/domain/entities/pokemon_entity.dart';
 import 'package:pokedex/features/pokemon/presentation/pokedex/widgets/poke_button.dart';
 
 class TinyPokemonView extends StatelessWidget {
   const TinyPokemonView({
     Key? key,
-    required this.imageUrls,
+    required this.selectedImageUrl,
     required this.itemCount,
+    required this.pokemonEntity,
   }) : super(key: key);
 
-  final List<String> imageUrls;
+  final List<String> selectedImageUrl;
   final int itemCount;
+  final List<PokemonEntity> pokemonEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,8 @@ class TinyPokemonView extends StatelessWidget {
                 itemBuilder: (_, index) => Column(
                   children: [
                     PokeButton(
-                      imageNetwork: imageUrls[index],
+                      pokemonEntity: pokemonEntity[index],
+                      selectedImageUrl: selectedImageUrl[index],
                     ),
                   ],
                 ),

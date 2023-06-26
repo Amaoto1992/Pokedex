@@ -64,21 +64,20 @@ class _PokedexScreenState extends State<PokedexScreen> {
                               ? pokemon.sprites!.other!.officialArtwork!
                                   .frontDefault!
                               : state.selectedImageUrl,
-                          pokemonId: pokemon.height.toString(),
-                          pokemonLevel: pokemon.baseExperience.toString(),
-                          pokemonType: pokemon.types![0].type!.name!
-                              .toString()
-                              .toUpperCase(),
+                          pokemonId: pokemon.abilities![i].slot.toString(),
+                          pokemonLevel: state.pokemonEntity.baseExperience.toString().isEmpty
+                              ? pokemon.baseExperience.toString()
+                              : state.pokemonEntity.baseExperience.toString(),
+                          pokemonType: pokemon.types![0].type!.name!.toString().toUpperCase(),
                           pokemonHability: pokemon.abilities![0].ability!.name!,
-                          pokemonHeight:
-                              pokemon.height.toString().toUpperCase(),
-                          pokemonWeight:
-                              pokemon.weight.toString().toUpperCase(),
+                          pokemonHeight: state.pokemonEntity.height.toString().isEmpty ? pokemon.height.toString().toUpperCase() : state.pokemonEntity.height.toString(),
+                          pokemonWeight: state.pokemonEntity.weight.toString().isEmpty ? pokemon.weight.toString().toUpperCase() : state.pokemonEntity.weight.toString(),
                         ),
                         const SizedBox(height: 20),
                         TinyPokemonView(
                           itemCount: pokemonList.length,
-                          imageUrls: pokemonList
+                          pokemonEntity: pokemonList,
+                          selectedImageUrl: pokemonList
                               .map((pokemon) => pokemon.sprites!.other!
                                   .officialArtwork!.frontDefault!)
                               .toList(),
