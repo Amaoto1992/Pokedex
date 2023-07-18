@@ -9,7 +9,8 @@ class PokemonCubit extends Cubit<PokemonState> {
       : super(PokemonState.initialState(
           selectedImageUrl: '',
           pokemonEntity: PokemonEntity(),
-        ));
+        ),
+  );
 
   final PokemonRepository _pokemonRepository;
 

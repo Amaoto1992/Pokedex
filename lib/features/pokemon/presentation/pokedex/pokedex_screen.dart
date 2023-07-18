@@ -19,6 +19,11 @@ class PokedexScreen extends StatefulWidget {
 
 class _PokedexScreenState extends State<PokedexScreen> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade600,
@@ -57,21 +62,43 @@ class _PokedexScreenState extends State<PokedexScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(height: 30),
-                        nameContainer(pokemon),
+                        nameContainer(
+                          state.pokemonEntity.name == null
+                              ? pokemon
+                              : state.pokemonEntity,
+                        ),
                         const SizedBox(height: 20),
                         PokemonCard(
                           imageNetwork: state.selectedImageUrl.isEmpty
-                              ? pokemon.sprites!.other!.officialArtwork!
+                              ? pokemonList[i]
+                                  .sprites!
+                                  .other!
+                                  .officialArtwork!
                                   .frontDefault!
                               : state.selectedImageUrl,
-                          pokemonId: pokemon.abilities![i].slot.toString(),
-                          pokemonLevel: state.pokemonEntity.baseExperience.toString().isEmpty
-                              ? pokemon.baseExperience.toString()
+                          pokemonId: state.pokemonEntity.id == null
+                              ? pokemonList[i].id.toString()
+                              : state.pokemonEntity.id.toString(),
+                          pokemonLevel: state.pokemonEntity.baseExperience == null
+                              ? pokemonList[i].baseExperience.toString()
                               : state.pokemonEntity.baseExperience.toString(),
-                          pokemonType: pokemon.types![0].type!.name!.toString().toUpperCase(),
-                          pokemonHability: pokemon.abilities![0].ability!.name!,
-                          pokemonHeight: state.pokemonEntity.height.toString().isEmpty ? pokemon.height.toString().toUpperCase() : state.pokemonEntity.height.toString(),
-                          pokemonWeight: state.pokemonEntity.weight.toString().isEmpty ? pokemon.weight.toString().toUpperCase() : state.pokemonEntity.weight.toString(),
+                          pokemonType: state.pokemonEntity.types == null
+                                  ? pokemonList[i]
+                                      .types![0]
+                                      .type!
+                                      .name!
+                                      .toString()
+                                      .toUpperCase()
+                                  : state.pokemonEntity.types![i].type!.name!.toString().toUpperCase(),
+                          pokemonHability: state.pokemonEntity.abilities == null
+                                  ? pokemonList[i].abilities![0].ability!.name!
+                                  : state.pokemonEntity.abilities![i].ability!.name.toString().toUpperCase(),
+                          pokemonHeight: state.pokemonEntity.height == null
+                              ? pokemonList[i].height.toString().toUpperCase()
+                              : state.pokemonEntity.height.toString(),
+                          pokemonWeight: state.pokemonEntity.weight == null
+                              ? pokemonList[i].weight.toString().toUpperCase()
+                              : state.pokemonEntity.weight.toString(),
                         ),
                         const SizedBox(height: 20),
                         TinyPokemonView(
